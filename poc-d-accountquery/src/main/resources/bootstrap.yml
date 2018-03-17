@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: poc-d-accountquery
+  config:
+    name: poc-d-accountquery
+  cloud:
+    config:
+      uri: http://config:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user

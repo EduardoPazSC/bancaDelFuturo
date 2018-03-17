@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.citibanamex.bne.poc-d-accounttransfer</groupId>
+	<artifactId>poc-d-accounttransfer</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>poc-d-accounttransfer</name>
+	<description>API Domain Service for Electronic Banking Domain</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.6.RELEASE</version> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<tomcat-version>8.0.32</tomcat-version>
+		<spring-cloud.version>Dalston.SR2</spring-cloud.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-feign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-ribbon</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+        
+        	<!-- Jdbc client dependency -->
+        	<dependency>
+        		<groupId>com.citibanamex.bne</groupId>
+        		<artifactId>jdbc-client</artifactId>
+        		<version>1.0.0-SNAPSHOT</version>
+        	</dependency>
+        
+        
+        	<!-- tuxedo client dependency -->
+        	<dependency>
+        		<groupId>com.citibanamex.bne</groupId>
+        		<artifactId>tuxedo-client</artifactId>
+        		<version>1.2.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Swagger UI -->
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<--            -->
+        		
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-juli</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<finalName>poc-d-accounttransfer</finalName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>development</id>			
+			<dependencies>
+				<!-- Eureka dependency, only for development enviroment -->
+				<dependency>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-starter-eureka</artifactId>
+				</dependency>
+
+				<!-- Devtools in order to make development work easier -->
+				<dependency>
+    					<groupId>org.springframework.boot</groupId>
+    					<artifactId>spring-boot-devtools</artifactId>
+    					<version>1.5.2.RELEASE</version>
+				</dependency>
+
+				<!-- Message queue driver to automatic send streams to rabbitmq -->
+				<dependency>
+                        		<groupId>org.springframework.cloud</groupId>
+                        		<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+				</dependency>
+
+				<!-- Hystrix streaming information to send data to rabbitmq -->
+                		<dependency>
+                        		<groupId>org.springframework.cloud</groupId>
+                        		<artifactId>spring-cloud-netflix-hystrix-stream</artifactId>
+                		</dependency>
+            		</dependencies>
+		</profile>
+	</profiles>
+</project>
